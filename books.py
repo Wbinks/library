@@ -14,6 +14,7 @@ class bookFrame(tk.Frame):
 
         l2 = tk.Label(self,text="Available books:", font=self.mainfont)
         l2.grid(row=2,column=1, sticky="W")
+        self.bookList=[]
 
         self.rowconfigure(1,minsize=100)
         self.booklist = tk.Listbox(self,width=30, height=20)
@@ -22,7 +23,7 @@ class bookFrame(tk.Frame):
         l2 = tk.Label(self,text="Your books:", font=self.mainfont)
         l2.grid(row=2,column=5, sticky="W")
         
-        l3 = tk.Button(self,text="Move", font=self.mainfont)
+        l3 = tk.Button(self,text="Move", font=self.mainfont, command = self.move)
         l3.grid(row=3,column=3 )
 
         self.ownBooks = tk.Listbox(self,width=30)
@@ -33,6 +34,11 @@ class bookFrame(tk.Frame):
         self.columnconfigure(0,weight=50)
         self.columnconfigure(7,weight=50)
 
+    def move(self):
+        data = self.booklist.curselection()[0]
+        self.ownBooks.insert(tk.END,self.bookList[data][1])
+        self.loadUp()
+        
     def loadUp(self):
         # put code in here to be run when this frame is displayed
         
@@ -41,4 +47,6 @@ class bookFrame(tk.Frame):
         results = results.fetchall()
         for i in results:
             self.booklist.insert(tk.END, i[1])
+            self.bookList.append(i)
+      
         pass
