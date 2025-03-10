@@ -57,7 +57,8 @@ class loginFrame(tk.Frame):
         password = self.passbox.get()
         results = self.parent.cursor.execute("SELECT * from users WHERE username = ? and password = ?", (username, password))
         results = results.fetchall()
-        if True: #    len(results) == 1:
+        
+        if len(results) == 1:
             # OK login
             # Then switch frames
             self.parent.switchFrame("books")
